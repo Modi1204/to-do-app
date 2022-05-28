@@ -1,0 +1,73 @@
+<mat-card>
+  <mat-card-title>Add/Edit Task</mat-card-title>
+</mat-card>
+<br />
+<mat-card>
+  <form class="example-form" [formGroup]="todoForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Task Name</mat-label>
+      <input matInput placeholder="Task Name" formControlName="TaskName" />
+      <mat-error *ngIf="todoForm.controls.TaskName.errors?.required"
+        >Please Enter Value</mat-error
+      >
+      <mat-error *ngIf="todoForm.controls.TaskName.errors?.maxlength"
+        >Task Name should be less than 20 characters</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Description"
+        formControlName="Description"
+      ></textarea>
+      <mat-error *ngIf="todoForm.controls.Description.errors?.required"
+        >Please Enter Value</mat-error
+      >
+      <mat-error *ngIf="todoForm.controls.Description.errors?.maxlength"
+        >Task Name should be less than 50 characters</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [max]="maxDate"
+        [matDatepicker]="picker"
+        formControlName="Due"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="todoForm.controls.Due.errors?.required"
+        >Please Enter Value</mat-error
+      >
+      <mat-error *ngIf="todoForm.controls.Due.errors?.matDatepickerMin"
+        >Please Enter valid Date</mat-error
+      >
+      <mat-error *ngIf="todoForm.controls.Due.errors?.matDatepickerMax"
+        >Please Enter valid Date</mat-error
+      >
+      <mat-error *ngIf="todoForm.controls.Due.errors?.matDatepickerParse"
+        >Please Enter valid Date format</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Status</mat-label>
+      <input matInput formControlName="Status" readonly />
+    </mat-form-field>
+    <br />
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="todoForm.invalid"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
+  </form>
+</mat-card>
