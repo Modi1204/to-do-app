@@ -7,20 +7,25 @@ import { CommonService } from '../common.service';
   styleUrls: ['./task-list.component.scss'],
 })
 export class TaskListComponent implements OnInit {
-  @Input() todoData: any;
+  @Input() todoDataArray: any;
+  @Input() todoDataCurrentDate: any;
+  currentDay: any;
   constructor(private commonService: CommonService) {}
 
-  ngOnInit(): void {}
-
-  onToDoEdit(): void {
-    this.commonService.todoEdit.emit(this.todoData);
+  ngOnInit(): void {
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+    this.currentDay =  weekday[new Date(this.todoDataCurrentDate).getDay()];
   }
 
-  onToDoDelete(): void {
+  onToDoEdit(todoData: any): void {
+    this.commonService.todoEdit.emit(todoData);
+  }
+
+  onToDoDelete(todoData: any): void {
     let todoList: any = localStorage.getItem('todolist') || '[]';
     todoList = JSON.parse(todoList);
-    todoList.forEach((todoData: any, index: number) => {
-      if (todoData.Id == this.todoData.Id) {
+    todoList.forEach((todoDetail: any, index: number) => {
+      if (todoDetail.Id == todoData.Id) {
         todoList.splice(index, 1);
       }
     });
@@ -28,12 +33,12 @@ export class TaskListComponent implements OnInit {
     this.commonService.onToDoDataChange.emit();
   }
   
-  onStatusChange(Status: string): void {
+  onStatusChange(todoData: any): void {
     let todoList: any = localStorage.getItem('todolist') || '[]';
     todoList = JSON.parse(todoList);
-    todoList.forEach((todoData: any, index: number) => {
-      if (todoData.Id == this.todoData.Id) {
-        todoList[index].Status = Status;
+    todoList.forEach((todoDetail: any, index: number) => {
+      if (todoDetail.Id == todoData.Id) {
+        todoList[index].Status = todoData.Status == 'Completed' ? 'Pending' : 'Completed';
       }
     });
     localStorage.setItem('todolist', JSON.stringify(todoList));

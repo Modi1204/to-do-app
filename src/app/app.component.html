@@ -1,5 +1,5 @@
 <app-create-task> </app-create-task>
 <br />
-<ng-container *ngFor="let item of todoList">
-  <app-task-list [todoData]="item"> </app-task-list>
+<ng-container *ngFor="let item of todoList | keyvalue">
+  <app-task-list [todoDataArray]="item.value" [todoDataCurrentDate]="item.key"> </app-task-list>
 </ng-container>

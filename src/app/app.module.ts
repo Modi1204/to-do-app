@@ -13,16 +13,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgPipesModule } from 'ngx-pipes';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {​​​​​​MatGridListModule}​​​​​​ from '@angular/material/grid-list';
-import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatGridListModule } from '@angular/material/grid-list';
+import {
+  MatMomentDateModule,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CreateTaskComponent,
-    TaskListComponent
-  ],
+  declarations: [AppComponent, CreateTaskComponent, TaskListComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -36,11 +35,11 @@ import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/m
     NgPipesModule,
     MatSlideToggleModule,
     MatMomentDateModule,
-    MatGridListModule
+    MatGridListModule,
   ],
   providers: [
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

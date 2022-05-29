@@ -1,32 +1,32 @@
 <mat-card class="example-card">
-  <mat-card-subtitle>Monday</mat-card-subtitle>
-  <mat-card-title>{{ todoData.TaskName }}</mat-card-title>
-  <mat-card-content>
-    <p>{{ todoData.Description }}</p>
-    <p>{{ todoData.Due.split("T")[0] }}</p>
-  </mat-card-content>
-  <mat-divider inset></mat-divider>
-  <mat-card-actions>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="onToDoEdit()"
-      [disabled]="todoData.Status == 'Completed'"
-    >
-      Edit
-    </button>
-    <button mat-raised-button color="warn" (click)="onToDoDelete()">
-      Delete
-    </button>
-    <mat-slide-toggle
-      class="example-margin"
-      color="primary"
-      [checked]="todoData.Status == 'Completed'"
-      (click)="
-        onStatusChange(todoData.Status == 'Completed' ? 'Pending' : 'Completed')
-      "
-    >
-      {{ todoData.Status }}
-    </mat-slide-toggle>
-  </mat-card-actions>
+  <mat-card-subtitle>{{ currentDay }}</mat-card-subtitle>
+  <ng-container *ngFor="let todoData of todoDataArray | orderBy: 'Status'">
+    <mat-card-title>{{ todoData.TaskName }}</mat-card-title>
+    <mat-card-content>
+      <p>{{ todoData.Description }}</p>
+      <p>{{ todoData.Due.split("T")[0] }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="onToDoEdit(todoData)"
+        [disabled]="todoData.Status == 'Completed'"
+      >
+        Edit
+      </button>
+      <button mat-raised-button color="warn" (click)="onToDoDelete(todoData)">
+        Delete
+      </button>
+      <mat-slide-toggle
+        class="example-margin"
+        color="primary"
+        [checked]="todoData.Status == 'Completed'"
+        (click)="onStatusChange(todoData)"
+      >
+        {{ todoData.Status }}
+      </mat-slide-toggle>
+    </mat-card-actions>
+    <mat-divider inset></mat-divider>
+  </ng-container>
 </mat-card>

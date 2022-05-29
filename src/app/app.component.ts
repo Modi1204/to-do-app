@@ -11,14 +11,14 @@ import { CommonService } from './common.service';
 export class AppComponent {
   title = 'to-do-app';
   temptodoList: any = localStorage.getItem('todolist') || '[]';
-  todoList = JSON.parse(this.temptodoList);
+  todoList: any;
   
   constructor(private commonService: CommonService, private groupByPipe: GroupByPipe) {}
   ngOnInit(): void {
-    console.log(this.groupByPipe.transform(this.todoList, 'Due'));
+    this.todoList = this.groupByPipe.transform(JSON.parse(this.temptodoList), 'Due');
     this.commonService.onToDoDataChange.subscribe(() => {
       this.temptodoList = localStorage.getItem('todolist');
-      this.todoList = JSON.parse(this.temptodoList);
+      this.todoList = this.groupByPipe.transform(JSON.parse(this.temptodoList), 'Due');
     });
   }
   
